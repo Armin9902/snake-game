@@ -11,6 +11,7 @@ class SnakePart{
         this.y=y;
     }
 }
+
 let tileCount=16;
 let tileSize=game.width / tileCount - 3;
 let headx=8;
@@ -31,10 +32,14 @@ function drawGame(){
     checkAppleCollision();
     drawscore();
     let result = checkGameOver();
-    if(result== true){
+    if(result == true){
         showOver();
     }
-
+    if(score==3){speed=6.2};
+    if(score==5){speed=6.4};
+    if(score==7){speed=6.6};
+    if(score==10){speed=6.8};
+    if(score==15){speed=7};
 }
 drawGame();
 function checkGameOver(){
@@ -57,7 +62,7 @@ function checkGameOver(){
         let part=snakeParts[i];
         while(part.x==headx && part.y==heady)
         {
-        return false;
+        return true;
         break;
         }
       }
@@ -73,19 +78,6 @@ function showOver(){
     gradient.addColorStop("1","blue");
     ctx.fillStyle=gradient;
     ctx.fillText("Game Over",game.width /12,game.height/2);
-    setTimeout(() => {
-        clearScreen();
-        headx=8;
-        heady=8;
-        xvelocity=0;
-        yvelocity=0;
-        applex=5;
-        appley=5;
-        tailLength=2;
-        snakeParts=[];
-        score=0;
-        drawGame();
-    },2000);
 }
 function drawscore(){
     ctx.fillStyle="white";
